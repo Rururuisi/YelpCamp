@@ -59,6 +59,7 @@ app.use(mongoSanitize());
 app.use(helmet());
 
 
+// helmet config
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
     "https://api.tiles.mapbox.com/",
@@ -78,8 +79,7 @@ const styleSrcUrls = [
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com/",
-    "https://a.tiles.mapbox.com/",
-    "https://b.tiles.mapbox.com/",
+    "https://*.tiles.mapbox.com/",
     "https://events.mapbox.com/",
 ];
 const fontSrcUrls = [];
@@ -91,6 +91,7 @@ app.use(
             scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
             styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
             workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
             objectSrc: [],
             'img-src': [
                 "'self'",
