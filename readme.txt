@@ -1,2 +1,2 @@
-Website Of this Project: https://yelpcamp-60901-b18d7d9a3c7b.herokuapp.com/
-(Occasionally Open)
+first run seeds/index.js to initialize the app,
+then run app.js to start the server
