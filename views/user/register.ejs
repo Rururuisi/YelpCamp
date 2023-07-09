@@ -1,0 +1,53 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+<div class="card shadow col-11 col-md-8 col-lg-5 m-auto my-4">
+    <div class="row g-0">
+        <img class="card-img-top"
+            src="https://images.unsplash.com/photo-1600799964235-c827e39f004a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1610&q=80"
+            alt="">
+        <div class="card-body p-4">
+            <h2 class="text-center mb-4">Register</h2>
+            <div class=" m-auto">
+                <form class="needs-validation" action="/register" method="post" novalidate>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="username"><b>Username <i
+                                    class="text-danger">*</i></b></label>
+                        <input class="form-control" type="text" name="username" id="username" placeholder="Username"
+                            autofocus required>
+                        <div class="invalid-feedback">Please enter your username! </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="email"><b>Email <i class="text-danger">*</i></b></label>
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
+                        <div class="invalid-feedback">Please enter the valid Email! </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="password"><b>Password <i
+                                    class="text-danger">*</i></b></label>
+                        <div class="input-group password-group">
+                            <input class="form-control form-password" type="password" name="password" id="password"
+                                placeholder="Password" required>
+                            <div class="invalid-feedback">Please enter your password! </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="col-form-label" for="confirm"><b>Confirm Password <i
+                                    class="text-danger">*</i></b></label>
+                        <div class="input-group password-group">
+                            <input class="form-control form-confirm" type="password" name="confirm" id="confirm"
+                                placeholder="Enter your password again" required>
+                            <div class="invalid-feedback">Please confirm your password! </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-center mb-3">
+                            <a class="btn btn-dark btn-sm" href="/">Cancel</a>
+                            <button class="btn btn-danger btn-sm form-submit" disabled>Sign In</button>
+                        </div>
+                        <a href="/login">Already have an account? Sign in now!</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

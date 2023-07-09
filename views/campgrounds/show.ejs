@@ -1,0 +1,127 @@
+<% layout('layouts/boilerplate') %>
+
+<section class="row justify-content-center mt-4">
+    <div class="card col-11 col-md-8 col-lg-6 p-0 mb-5">
+        <div id="campgroundIndicators" class="carousel slide">
+            <div class="carousel-inner">
+                <% campground.images.forEach((img, index) => { %>
+                <div class="carousel-item <%= (index === 0) ? 'active' : '' %>">
+                    <img src="<%= img.resize %>" class="d-block w-100" alt="...">
+                </div>
+                <% }) %>
+            </div>
+            <% if(campground.images.length > 1){ %>
+            <div class="carousel-indicators">
+                <% campground.images.forEach((img, index) => { %>
+                <button type="button" data-bs-target="#campgroundIndicators" data-bs-slide-to="<%= index %>"
+                    class="<%= index===0 ? 'active':'' %>" aria-current="<%= index===0 ? 'true':'false' %>"
+                    aria-label="Slide <%= index %>"></button>
+                <% }) %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#campgroundIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#campgroundIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><%= campground.title %></h5>
+            <p class="card-text"><small class="text-muted"><i><%= campground.location %></i></small></p>
+            <p class="card-text"><%= campground.description %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>Price: </b>$<%= campground.price %>/day</li>
+        </ul>
+        <% if(currentUser && campground.author.equals(currentUser.id)) {%>
+        <div class="card-body">
+            <a href="/campgrounds/<%= campground.id %>/edit" class="btn btn-dark btn-sm">Edit</a>
+            <form action="/campgrounds/<%= campground.id %>?_method=delete" method="post" class="d-inline">
+                <button class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </div>
+        <% } %>
+        <div class="card-footer text-muted">
+            Submitted by <i><%= campground.author.username %></i>
+        </div>
+    </div>
+    <div class="col-11 col-md-8 col-lg-5 col-xl-4">
+        <div class="card" id='map'>
+            <div id="menu" class="z-2">
+                <input id="streets-v12" type="radio" name="rtoggle" value="streets" checked="checked">
+                <label for="streets-v12">streets</label>
+                <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
+                <label for="outdoors-v12">outdoors</label>
+                <input id="satellite-streets-v12" type="radio" name="rtoggle" value="streets">
+                <label for="satellite-streets-v12">satellite streets</label>
+                <input id="light-v11" type="radio" name="rtoggle" value="light">
+                <label for="light-v11">light</label>
+                <input id="dark-v11" type="radio" name="rtoggle" value="dark">
+                <label for="dark-v11">dark</label>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<hr><br>
+
+<section class="row m-auto mt-5">
+    <div class="card col-12 col-md-11 m-auto mb-5">
+        <h4 class="mt-3">Leave a Review</h4>
+        <hr>
+        <form class="needs-validation" action="/campgrounds/<%= campground.id %>/review" method="post" novalidate>
+            <fieldset class="starability-slot">
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
+                    aria-label="No rating.">
+                <input type="radio" id="rate1" name="rating" value="1">
+                <label for="rate1" title="Terrible">1 star</label>
+                <input type="radio" id="rate2" name="rating" value="2">
+                <label for="rate2" title="Not good">2 stars</label>
+                <input type="radio" id="rate3" name="rating" value="3">
+                <label for="rate3" title="Average">3 stars</label>
+                <input type="radio" id="rate4" name="rating" value="4">
+                <label for="rate4" title="Very good">4 stars</label>
+                <input type="radio" id="rate5" name="rating" value="5">
+                <label for="rate5" title="Amazing">5 stars</label>
+            </fieldset>
+            <div class="mb-3">
+                <label for="body" class="col-form-label">Review</label>
+                <textarea class="form-control" name="body" id="body" cols="30" rows="5" required></textarea>
+                <div class="invalid-feedback">Review Required! </div>
+            </div>
+            <button class="btn btn-success mb-3">Submit</button>
+        </form>
+    </div>
+    <div class="col-12 col-md-11 m-auto mt-5">
+        <h3>Reviews</h3>
+        <hr>
+        <h5 class="mt-5 mb-5"><b>Average Rating: </b><%= ratingAverage %></h5>
+        <% for(let review of campground.reviews) {%>
+        <div class="card p-3 mb-5 mt-3">
+            <h5 class="card-title mb-3"><%= review.author.username %></h5>
+            <p class="starability-result" data-rating="<%= review.rating %>">
+                Rated: <%= review.rating %> stars
+            </p>
+            <p class="card-text"><%= review.body %></p>
+            <% if(currentUser && review.author.equals(currentUser.id)) {%>
+            <form action="/campgrounds/<%= campground.id %>/review/<%= review.id %>?_method=delete" method="post">
+                <a href="/campgrounds/<%= campground.id %>/review/<%= review.id %>/edit"
+                    class="btn btn-dark btn-sm">Edit</a>
+                <button class="btn btn-danger btn-sm">Delete</button>
+            </form>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+    let campground = JSON.parse('<%- JSON.stringify(campground) %>');
+</script>
+<script crossorigin="anonymous" src="/javascripts/showPageMap.js"></script>

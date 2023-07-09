@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row my-5">
+    <div class="card shadow col-11 col-md-9 col-lg-7 m-auto py-4">
+        <h1 class="text-center mb-4">New Campground</h1>
+        <div class="card-body">
+            <form class="needs-validation" action="/campgrounds" method="post" enctype="multipart/form-data" novalidate>
+                <div class="mb-3">
+                    <label class="col-form-label" for="title"><b>Title <i class="text-danger">*</i></b></label>
+                    <input class="form-control" type="text" name="campground[title]" id="title" placeholder="Title"
+                        required>
+                    <div class="invalid-feedback">Please provide a campground title! </div>
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label" for="price"><b>Price <i class="text-danger">*</i></b></label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input class="form-control" type="number" name="campground[price]" id="price" min="0"
+                            step="0.01" placeholder="0.00" required>
+                        <div class="invalid-feedback">Please provide the campground price! </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label" for=""><b>Location <i class="text-danger">*</i></b></label>
+                    <input class="form-control" type="text" name="campground[location]" id="location"
+                        placeholder="City, State" required>
+                    <div class="invalid-feedback">Please provide the location of the campground! </div>
+                </div>
+                <div class="custom-file mb-3">
+                    <label for="image" class="col-form-label"><b>Image(s) <i class="text-danger">*</i></b></label>
+                    <input class="form-control imagesChosen" type="file" name="image" id="image" required multiple>
+                    <small class="custom-file-label text-muted"></small>
+                    <div class="invalid-feedback">Please upload valid images! </div>
+                    <div class="valid-feedback">Looks good! </div>
+                </div>
+                <div class="row imagesDisplay mb-3"></div>
+                <div class="mb-3">
+                    <label for="description" class="col-form-label"><b>Description</b> <i
+                            class="text-danger">*</i></label>
+                    <textarea class="form-control" name="campground[description]" id="description" cols="30" rows="5"
+                        placeholder="Describe the campground..." required></textarea>
+                    <div class="invalid-feedback">Description required! </div>
+                </div>
+                <br>
+                <div>
+                    <a href="/campgrounds" class="btn btn-dark btn-sm">Cancel</a>
+                    <button type="submit" class="btn btn-danger btn-sm">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

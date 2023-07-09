@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="card shadow col-11 col-lg-8 m-auto mb-5 p-3 mt-4">
+    <div class="card-body">
+        <h2>Leave a Review</h2>
+        <hr>
+        <form class="needs-validation" action="/campgrounds/<%= id %>/review/<%= review.id %>?_method=put" method="post"
+            novalidate>
+            <fieldset class="starability-slot">
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" aria-label="No rating."
+                    <%= review.rating === 0 ? 'checked':'' %>>
+                <input type="radio" id="rate1" name="rating" value="1" <%= review.rating === 1 ? 'checked':'' %>>
+                <label for="rate1" title="Terrible">1 star</label>
+                <input type="radio" id="rate2" name="rating" value="2" <%= review.rating === 2 ? 'checked':'' %>>
+                <label for="rate2" title="Not good">2 stars</label>
+                <input type="radio" id="rate3" name="rating" value="3" <%= review.rating === 3 ? 'checked':'' %>>
+                <label for="rate3" title="Average">3 stars</label>
+                <input type="radio" id="rate4" name="rating" value="4" <%= review.rating === 4 ? 'checked':'' %>>
+                <label for="rate4" title="Very good">4 stars</label>
+                <input type="radio" id="rate5" name="rating" value="5" <%= review.rating === 5 ? 'checked':'' %>>
+                <label for="rate5" title="Amazing">5 stars</label>
+            </fieldset>
+            <div class="mb-3">
+                <label for="body" class="col-form-label">Review</label>
+                <textarea class="form-control" name="body" id="body" cols="30" rows="10"
+                    required><%= review.body %></textarea>
+                <div class="invalid-feedback">Review Required! </div>
+            </div>
+            <a href="/campgrounds/<%= id %>" class="btn btn-dark btn-sm">Cancel</a>
+            <button class="btn btn-success btn-sm">Save</button>
+        </form>
+    </div>
+</div>

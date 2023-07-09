@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %>
+
+
+<div class="mt-3" id="cluster-map"></div>
+<h1 class="mt-5 text-center">Campgrounds</h1>
+<hr>
+<section class="d-flex justify-content-between flex-wrap mt-5">
+    <% for (let campground of campgrounds) {%>
+    <div class="card mb-5">
+        <div class="row">
+            <div class="col-md-12 col-lg-6 col-xl-5">
+                <% if(!campground.images || campground.images.length === 0) {%>
+                <img class="img-fluid" src="https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=600&q=60&w=1000">
+                <% } else { %>
+                <img class="img-fluid" src="<%= campground.images[0].resize %>" alt="">
+                <% } %>
+            </div>
+            <div class="col-lg-6 col-xl-7">
+                <div class="card-body">
+                    <h5 class="card-title"><%= campground.title %></h5>
+                    <p class="card-text">
+                        <small class="text-muted"><i><%= campground.location %></i></small>
+                    </p>
+                    <p class="card-text"><%= campground.description %></p>
+                    <a class="btn btn-dark" href="campgrounds/<%= campground.id %>">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</section>
+
+<script>
+    const mbxToken = '<%- process.env.MAPBOX_TOKEN %>';
+    const campgrounds = { features: JSON.parse('<%- JSON.stringify(campgrounds) %>') };
+</script>
+<script crossorigin="anonymous" src="/javascripts/clusterMap.js"></script>

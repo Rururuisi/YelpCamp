@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg position-fixed w-100 bg-body-tertiary bg-dark" data-bs-theme="dark"
+    style="z-index: 99;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">YelpCamp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/campgrounds">Campgrounds</a>
+                <a class="nav-link" href="/campgrounds/new">New Campground</a>
+                <a class="nav-link disabled">Disabled</a>
+            </div>
+            <div class="navbar-nav">
+                <% if(!currentUser) {%>
+                <a class="btn btn-dark text-center text-light" href="/login">Login</a>
+                <a class="btn btn-outline-light text-center" href="/register">Register</a>
+                <% } else {%>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-center text-light" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" href="#"><%= currentUser.username %></a>
+                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li><a class="nav-link dropdown-item text-center text-lg-start" href="#">Profile</a></li>
+                        <li><a class="nav-link dropdown-item text-center text-lg-start" href="#">My Campgrounds</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="nav-link dropdown-item text-center text-lg-start" href="/logout">Sign Out</a></li>
+                    </ul>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
