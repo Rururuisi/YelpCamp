@@ -1,5 +1,5 @@
-This Project was deployed by using Render.
-Access Website: https://yelpcamp-tsma.onrender.com
+This Project was deployed by using Replit.
+Access Website: https://yelpcamp.rururuisi.repl.co
 
 
 Other instructions:
